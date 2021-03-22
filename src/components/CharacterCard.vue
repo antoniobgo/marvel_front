@@ -4,9 +4,20 @@ v-card(
 )
     v-img(
         height="150"
-        src="http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg"
+        :src="character.thumbnail"
     )
     v-card-title
-        |   Um Hero
-    v-card-text Uma descricao Uma descricao Uma descricao Uma descricao Uma descricao Uma descricao Uma descricao Uma descricao Uma descricao Uma descricao Uma descricao Uma descricao
+        |   {{ character.name }}
+    v-card-text {{ character.description }}
 </template>
+
+<script>
+export default {
+  props: {
+    character: {
+      type: Object,
+      required: true
+    }
+  }
+}
+</script>

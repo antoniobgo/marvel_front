@@ -4,7 +4,7 @@ v-app
     v-spacer
     h3 Marvel Characteres
     v-spacer
-  v-content
+  v-content.mt-10
     v-container()
       home
 </template>
@@ -19,7 +19,7 @@ export default {
     Home
   },
   beforeMount () {
-    // this.$store.commit("initializeStore")
+    this.$store.commit('initializeStore')
   }
 }
 </script>

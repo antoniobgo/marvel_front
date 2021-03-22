@@ -7,6 +7,8 @@ export default new Vuex.Store({
   state: {
   },
   mutations: {
+    initializeStore (state) {
+    }
   },
   actions: {
   },
