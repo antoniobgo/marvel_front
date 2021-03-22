@@ -2,7 +2,8 @@
   v-row(justify="center")
     div.central-block
         v-row(justify="center")
-          character-card(:character="character").ma-3
+          template(v-for="character in characters")
+            character-card(:character="character").ma-3
 </template>
 
 <script>
@@ -17,8 +18,7 @@ export default {
   },
   data () {
     return {
-      character: {},
-      name: ''
+      characters: []
     }
   },
   mounted () {
@@ -32,12 +32,18 @@ export default {
   },
   methods: {
     populateCharacters (charactersArray) {
+      charactersArray.forEach(character => {
+        this.addCharacter(character)
+      })
+      debugger
+    },
+    addCharacter (characterToAdd) {
       const character = {
-        name: charactersArray[1].name,
-        description: charactersArray[1].description,
-        thumbnail: charactersArray[1].thumbnail
+        name: characterToAdd.name,
+        description: characterToAdd.description,
+        thumbnail: characterToAdd.thumbnail
       }
-      this.character = character
+      this.characters.push(character)
     }
   }
 }
