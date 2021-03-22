@@ -9,6 +9,8 @@ v-card(
     v-card-title
         |   {{ character.name }}
     v-card-text {{ character.description }}
+    v-card-actions
+      v-btn check comics
 </template>
 
 <script>

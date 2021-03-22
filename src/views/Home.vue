@@ -7,7 +7,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import CharacterCard from '@/components/CharacterCard.vue'
 import axios from 'axios'
 
@@ -27,15 +26,12 @@ export default {
       .then((response) => {
         this.populateCharacters(response.data)
       })
-      // debugger
-    // debugger
   },
   methods: {
     populateCharacters (charactersArray) {
       charactersArray.forEach(character => {
         this.addCharacter(character)
       })
-      debugger
     },
     addCharacter (characterToAdd) {
       const character = {
@@ -48,9 +44,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.central-block {
-  width: 75vw;
-}
-</style>
