@@ -9,6 +9,7 @@
 <script>
 import CharacterCard from '@/components/CharacterCard.vue'
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
@@ -16,31 +17,27 @@ export default {
     CharacterCard
   },
   data () {
-    return {
-      characters: []
+    return {}
+  },
+  beforeMount () {
+    if (!this.isStoreInitialized) {
+      axios.get('http://localhost:3000/api/v1/characters/')
+        .then((response) => {
+          if (response.status === 200) {
+            this.populateCharacters(response.data)
+          } else {
+            // TODO
+            console.log(response.status)
+          }
+        })
     }
   },
-  mounted () {
-    // this.$store.commit('initializeStore')
-    axios.get('http://localhost:3000/api/v1/characters/')
-      .then((response) => {
-        this.populateCharacters(response.data)
-      })
+  computed: {
+    ...mapState(['characters', 'isStoreInitialized'])
   },
   methods: {
     populateCharacters (charactersArray) {
-      charactersArray.forEach(character => {
-        this.addCharacter(character)
-      })
-    },
-    addCharacter (characterToAdd) {
-      const character = {
-        id: characterToAdd.id,
-        name: characterToAdd.name,
-        description: characterToAdd.description,
-        thumbnail: characterToAdd.thumbnail
-      }
-      this.characters.push(character)
+      this.$store.commit('setCharacters', charactersArray)
     }
   }
 }
