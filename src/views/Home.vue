@@ -35,6 +35,7 @@ export default {
     },
     addCharacter (characterToAdd) {
       const character = {
+        id: characterToAdd.id,
         name: characterToAdd.name,
         description: characterToAdd.description,
         thumbnail: characterToAdd.thumbnail

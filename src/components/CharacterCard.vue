@@ -10,7 +10,7 @@ v-card(
         |   {{ character.name }}
     v-card-text {{ character.description }}
     v-card-actions
-      v-btn check comics
+      v-btn(@click="goToCharacterComicPage") check comics
 </template>
 
 <script>
@@ -19,6 +19,12 @@ export default {
     character: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    goToCharacterComicPage () {
+      this.$store.commit('setCurrentCharacter', this.character)
+      this.$router.push('Comics')
     }
   }
 }

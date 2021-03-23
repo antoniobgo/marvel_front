@@ -3,17 +3,18 @@
     div.central-block
         v-row(justify="center")
           template(v-for="comic in comics")
-            character-card(:comic="comic").ma-3
+            comic-card(:comic="comic").ma-3
 </template>
 
 <script>
-import CharacterCard from '@/components/CharacterCard.vue'
+import ComicCard from '@/components/ComicCard.vue'
+import { mapState } from 'vuex'
 import axios from 'axios'
 
 export default {
   name: 'Home',
   components: {
-    CharacterCard
+    ComicCard
   },
   data () {
     return {
@@ -21,10 +22,13 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://localhost:3000/api/v1/comics/')
+    axios.get('http://localhost:3000/api/v1/comics/' + this.character.id)
       .then((response) => {
         this.populateComics(response.data)
       })
+  },
+  computed: {
+    ...mapState(['character'])
   },
   methods: {
     populateComics (comicsArray) {
@@ -34,9 +38,9 @@ export default {
     },
     addCharacter (comicsToAdd) {
       const comic = {
-        name: comicsToAdd.name,
+        name: comicsToAdd.title,
         description: comicsToAdd.description,
-        thumbnail: comicsToAdd.thumbnail
+        thumbnail: comicsToAdd.cover
       }
       this.comics.push(comic)
     }

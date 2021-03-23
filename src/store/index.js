@@ -5,9 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    character: {}
   },
   mutations: {
-    initializeStore (state) {
+    setCurrentCharacter (state, character) {
+      state.character = character
     }
   },
   actions: {

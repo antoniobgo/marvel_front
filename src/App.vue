@@ -5,8 +5,8 @@ v-app
     h3 Marvel Characteres
     v-spacer
   v-content.mt-10
-    v-container()
-      home
+    v-container
+      router-view
 </template>
 
 <script>
