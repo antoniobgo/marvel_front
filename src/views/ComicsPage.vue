@@ -77,11 +77,13 @@ export default {
         this.addCharacter(comics)
       })
     },
-    addCharacter (comicsToAdd) {
+    addCharacter (comicToAdd) {
       const comic = {
-        name: comicsToAdd.title,
-        description: comicsToAdd.description,
-        thumbnail: comicsToAdd.cover
+        title: comicToAdd.title,
+        description: comicToAdd.description,
+        thumbnail: comicToAdd.cover,
+        pageCount: comicToAdd.pageCount,
+        variantDescription: comicToAdd.variantDescription
       }
       this.comics.push(comic)
     }
