@@ -10,7 +10,8 @@ v-card(
         |   {{ character.name }}
     v-card-text {{ character.description }}
     v-card-actions
-      v-btn(@click="goToCharacterComicPage") check comics
+      v-row(justify="center").ma-0
+        v-btn(@click="goToCharacterComicPage") check comics
 </template>
 
 <script>

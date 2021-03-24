@@ -1,17 +1,24 @@
 <template lang="pug">
 div
-  v-row(justify="center").mb-5
-    div.central-block
-        v-row(justify="center")
-          template(v-for="character in getPageCharacters")
-            character-card(:character="character").ma-3
-  v-divider
-  v-row(justify="center").pa-10
-      pagination-items(
-        :totalPages="getTotalPagesArray"
-        :currentPage="currentPage"
-        @changePage="changeCurrentPage"
-      )
+  div(v-if="!loading")
+    v-row(justify="center").mb-5
+      div.central-block
+          v-row(justify="center")
+            template(v-for="character in getPageCharacters")
+              character-card(:character="character").ma-3
+    v-divider
+    v-row(justify="center").pa-10
+        pagination-items(
+          :totalPages="getTotalPagesArray"
+          :currentPage="currentPage"
+          @changePage="changeCurrentPage"
+        )
+  div(v-else)
+    v-progress-circular(
+      :size="100"
+      color="blue"
+      indeterminate
+    )
 </template>
 
 <script>
@@ -30,11 +37,13 @@ export default {
   data () {
     return {
       itemsPerPage: 30,
-      currentPage: 1
+      currentPage: 1,
+      loading: false
     }
   },
   beforeMount () {
     if (!this.isStoreInitialized) {
+      this.loading = true
       axios.get('http://localhost:3000/api/v1/characters/')
         .then((response) => {
           if (response.status === 200) {
@@ -45,6 +54,7 @@ export default {
           }
         })
     }
+    this.loading = false
   },
   computed: {
     ...mapState(['characters', 'isStoreInitialized']),
