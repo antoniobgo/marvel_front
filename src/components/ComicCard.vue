@@ -22,8 +22,6 @@ v-card.scroll(
       div(v-if="comic.variantDescription && comic.variantDescription.length > 0")
         .subtitle-1 {{ comic.variantDescription | truncate(200, '...') }}
       div(v-else) There is no variant description available
-    //- v-card-actions
-    //-   v-btn check comics
 </template>
 
 <script>

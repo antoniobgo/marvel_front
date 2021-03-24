@@ -8,18 +8,27 @@ v-card.d-flex.flex-column.scroll(
         max-height="250"
         :src="character.thumbnail"
     )
-    v-card-title
+    v-card-title.pb-0
         |   {{ character.name }}
     v-card-text
+      v-tooltip(right)
+        template(v-slot:activator="{on, attrs}")
+          v-btn.mb-1(
+            @click="goToCharacterComicPage"
+            v-on="on"
+            v-bind="attrs"
+            depressed
+            icon
+            large
+            )
+              v-icon mdi-book-open-blank-variant
+        span Check all character's comics!
       h3.mb-2.text-decoration-underline Description
       div(v-if="character.description && character.description.length > 0")
-        .subtitle-1 {{ character.description | truncate(200, '...') }}
+        .subtitle-1 {{ character.description | truncate(200, '...') }}b
       div(v-else)
         .subtitle-1 There is no description available
     v-spacer
-    v-card-actions
-      v-row(justify="center").ma-0
-        v-btn(@click="goToCharacterComicPage") check comics
 </template>
 
 <script>

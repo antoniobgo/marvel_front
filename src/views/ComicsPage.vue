@@ -13,7 +13,6 @@ div
           v-row(justify="center")
             template(v-for="comic in comics")
               comic-card(:comic="comic").ma-3
-    //- v-divider
     v-row(justify="center").pa-10
           pagination-items(
             :totalPages="getTotalPagesArray"
@@ -61,21 +60,23 @@ export default {
       return Array.from({ length: totalPages }, (_, index) => index + 1)
     },
     getMainMessage () {
-      return this.totalComics > 0 ? 'Check all ' + this.character.name + ' comics!' : 'There is no comics available for ' + this.character.name + ' :('
+      return this.totalComics > 0 ? 'Check all ' + this.character.name + ' ' + this.totalComics + ' comics appearances!' : 'There is no comics available for ' + this.character.name + ' :('
     }
   },
   methods: {
-    requestCharacters (pageNumber) {
+    requestCharacters () {
       this.loading = true
-      axios.get('http://localhost:3000/api/v1/comics/', { params: { character_id: this.character.id, pageNumber: pageNumber } })
+      axios.get('http://localhost:3000/api/v1/comics/', { params: { character_id: this.character.id, pageNumber: this.pageNumber } })
         .then((response) => {
+          // debugger
           this.populateComics(response.data.comics)
           this.totalComics = response.data.total
           this.loading = false
         })
     },
     changeCurrentPage (newCurrentPage) {
-      this.requestCharacters(newCurrentPage)
+      this.pageNumber = newCurrentPage
+      this.requestCharacters()
       this.currentPage = newCurrentPage
       window.scrollTo(0, 0)
     },
@@ -86,12 +87,24 @@ export default {
       return lengthPerItems + 1
     },
     populateComics (comicsArray) {
-      this.comics = []
-      comicsArray.forEach(comics => {
-        this.addCharacter(comics)
-      })
+      if (!comicsArray) {
+        this.loading = true
+        axios.get('http://localhost:3000/api/v1/comics/', { params: { character_id: this.character.id, pageNumber: this.pageNumber } })
+          .then((response) => {
+            const comicsArray = response.data.comics
+            // debugger
+            comicsArray.forEach(comics => {
+              this.addComic(comics)
+              this.loading = false
+            })
+          })
+      } else {
+        comicsArray.forEach(comics => {
+          this.addComic(comics)
+        })
+      }
     },
-    addCharacter (comicToAdd) {
+    addComic (comicToAdd) {
       const comic = {
         title: comicToAdd.title,
         description: comicToAdd.description,
