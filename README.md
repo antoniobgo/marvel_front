@@ -1,6 +1,6 @@
 # marvel_front
 
-## Project setup
+## To install all depedencies and setup project:
 ```
 npm install
 ```
@@ -10,15 +10,4 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Now the project should be running locally
