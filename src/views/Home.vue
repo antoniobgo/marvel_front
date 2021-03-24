@@ -29,7 +29,6 @@ import CharacterCard from '@/components/CharacterCard.vue'
 import PaginationItems from '@/components/PaginationItems'
 import axios from 'axios'
 import { mapState } from 'vuex'
-// import _ from 'lodash'
 
 export default {
   name: 'Home',
@@ -45,19 +44,17 @@ export default {
     }
   },
   beforeMount () {
-    if (!this.isStoreInitialized) {
-      this.loading = true
-      axios.get('http://localhost:3000/api/v1/characters/')
-        .then((response) => {
-          if (response.status === 200) {
-            this.populateCharacters(response.data)
-          } else {
-            // TODO
-            console.log(response.status)
-          }
-          this.loading = false
-        })
-    }
+    this.loading = true
+    axios.get('http://localhost:3000/api/v1/characters/')
+      .then((response) => {
+        if (response.status === 200) {
+          this.populateCharacters(response.data)
+        } else {
+          // TODO
+          console.log(response.status)
+        }
+        this.loading = false
+      })
   },
   computed: {
     ...mapState(['characters', 'isStoreInitialized']),
