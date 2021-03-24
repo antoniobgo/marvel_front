@@ -2,7 +2,7 @@
 v-app
   v-app-bar(app)
     v-spacer
-    h3 Marvel Characteres
+    h1 Marvel Database
     v-spacer
   v-content.mt-10
     v-container

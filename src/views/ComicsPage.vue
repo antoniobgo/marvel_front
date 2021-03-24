@@ -1,24 +1,30 @@
 <template lang="pug">
 div
-  div
-    v-row(justify="center")
-      div.central-block
-          v-row(justify="center")
-            template(v-for="comic in comics")
-              comic-card(:comic="comic").ma-3
-    //- v-divider
-    v-row(justify="center").pa-10
-          pagination-items(
-            :totalPages="getTotalPagesArray"
-            :currentPage="currentPage"
-            @changePage="changeCurrentPage"
-          )
-    //- div(v-else)
-    //-   v-progress-circular(
-    //-     :size="100"
-    //-     color="blue"
-    //-     indeterminate
-    //-   )
+  v-row.mb-3(justify="start")
+    v-btn(
+      @click="goToHome"
+      outlined
+    ) Back to characters page
+  v-row(justify="center")
+    h1.mb-10.pa-5.bordered Check all {{ character.name }} comics!
+  v-row(justify="center")
+    div.central-block
+        v-row(justify="center")
+          template(v-for="comic in comics")
+            comic-card(:comic="comic").ma-3
+  //- v-divider
+  v-row(justify="center").pa-10
+        pagination-items(
+          :totalPages="getTotalPagesArray"
+          :currentPage="currentPage"
+          @changePage="changeCurrentPage"
+        )
+  //- div(v-else)
+  //-   v-progress-circular(
+  //-     :size="100"
+  //-     color="blue"
+  //-     indeterminate
+  //-   )
 </template>
 
 <script>
@@ -86,7 +92,17 @@ export default {
         variantDescription: comicToAdd.variantDescription
       }
       this.comics.push(comic)
+    },
+    goToHome () {
+      this.$router.push({ name: 'Home' })
     }
   }
 }
 </script>
+
+<style scoped>
+.bordered {
+  border: solid white 1px;
+  border-radius: 13px;
+}
+</style>

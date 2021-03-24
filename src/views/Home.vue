@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  div(v-if="!loading")
+  div
     v-row(justify="center").mb-5
       div.central-block
           v-row(justify="center")
@@ -13,7 +13,7 @@ div
           :currentPage="currentPage"
           @changePage="changeCurrentPage"
         )
-  div(v-else)
+  div
     v-progress-circular(
       :size="100"
       color="blue"
@@ -37,13 +37,11 @@ export default {
   data () {
     return {
       itemsPerPage: 30,
-      currentPage: 1,
-      loading: false
+      currentPage: 1
     }
   },
   beforeMount () {
     if (!this.isStoreInitialized) {
-      this.loading = true
       axios.get('http://localhost:3000/api/v1/characters/')
         .then((response) => {
           if (response.status === 200) {
@@ -54,7 +52,6 @@ export default {
           }
         })
     }
-    this.loading = false
   },
   computed: {
     ...mapState(['characters', 'isStoreInitialized']),
