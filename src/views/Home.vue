@@ -1,6 +1,8 @@
 <template lang="pug">
 div
-  div
+  div(v-if="!loading")
+    v-row(justify="center")
+      h1.mb-10.pa-5.bordered {{ getMainMessage }}
     v-row(justify="center").mb-5
       div.central-block
           v-row(justify="center")
@@ -13,12 +15,13 @@ div
           :currentPage="currentPage"
           @changePage="changeCurrentPage"
         )
-  div
-    v-progress-circular(
-      :size="100"
-      color="blue"
-      indeterminate
-    )
+  div(v-else)
+    v-row(justify="center")
+      v-progress-circular(
+        :size="300"
+        color="blue"
+        indeterminate
+      )
 </template>
 
 <script>
@@ -37,7 +40,8 @@ export default {
   data () {
     return {
       itemsPerPage: 30,
-      currentPage: 1
+      currentPage: 1,
+      loading: true
     }
   },
   beforeMount () {
@@ -50,6 +54,7 @@ export default {
             // TODO
             console.log(response.status)
           }
+          this.loading = false
         })
     }
   },
@@ -69,6 +74,9 @@ export default {
         if (this.characters[i]) pageCharacters.push(this.characters[i])
       }
       return pageCharacters
+    },
+    getMainMessage () {
+      return 'Welcome to Marvel Database!'
     }
   },
   methods: {
@@ -88,3 +96,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.bordered {
+  border: solid white 1px;
+  border-radius: 13px;
+}
+
+</style>

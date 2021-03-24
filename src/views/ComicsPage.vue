@@ -6,7 +6,7 @@ div
       outlined
     ) Back to characters page
   v-row(justify="center")
-    h1.mb-10.pa-5.bordered Check all {{ character.name }} comics!
+    h1.mb-10.pa-5.bordered {{ getMainMessage }}
   v-row(justify="center")
     div.central-block
         v-row(justify="center")
@@ -56,6 +56,9 @@ export default {
     getTotalPagesArray () {
       const totalPages = this.getTotalPagesAndResetCurrentPage()
       return Array.from({ length: totalPages }, (_, index) => index + 1)
+    },
+    getMainMessage () {
+      return this.totalComics > 0 ? 'Check all ' + this.character.name + ' comics!' : 'There is no comics available for ' + this.character.name + ' :('
     }
   },
   methods: {
