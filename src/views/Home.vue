@@ -41,11 +41,12 @@ export default {
     return {
       itemsPerPage: 30,
       currentPage: 1,
-      loading: true
+      loading: false
     }
   },
   beforeMount () {
     if (!this.isStoreInitialized) {
+      this.loading = true
       axios.get('http://localhost:3000/api/v1/characters/')
         .then((response) => {
           if (response.status === 200) {
