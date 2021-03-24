@@ -14,6 +14,7 @@ export default new Vuex.Store({
       state.character = character
     },
     setCharacters (state, characters) {
+      state.characters = []
       characters.forEach(characterToAdd => {
         const character = {
           id: characterToAdd.id,

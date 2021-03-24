@@ -1,7 +1,8 @@
 <template lang="pug">
 v-card.d-flex.flex-column.scroll(
     max-width="250"
-    max-height="500"
+    max-height="400"
+    :elevation="10"
 )
     v-img(
         max-height="250"

@@ -67,7 +67,7 @@ export default {
   methods: {
     requestCharacters (pageNumber) {
       this.loading = true
-      axios.get('http://localhost:3000/api/v1/comics/' + this.character.id, { params: { pageNumber: pageNumber } })
+      axios.get('http://localhost:3000/api/v1/comics/', { params: { character_id: this.character.id, pageNumber: pageNumber } })
         .then((response) => {
           this.populateComics(response.data.comics)
           this.totalComics = response.data.total

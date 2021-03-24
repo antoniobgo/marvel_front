@@ -4,8 +4,8 @@ v-app
     v-spacer
     h1 Marvel Database
     v-spacer
-  v-content.mt-10
-    v-container
+  v-main.mt-10
+    v-container()
       router-view
 </template>
 
@@ -17,9 +17,6 @@ export default {
 
   components: {
     Home
-  },
-  beforeMount () {
-    this.$store.commit('initializeStore')
   }
 }
 </script>

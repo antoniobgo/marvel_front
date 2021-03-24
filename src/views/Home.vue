@@ -40,21 +40,24 @@ export default {
     return {
       itemsPerPage: 30,
       currentPage: 1,
-      loading: false
+      loading: false,
+      errorGettingCharacters: false
     }
   },
   beforeMount () {
-    this.loading = true
-    axios.get('http://localhost:3000/api/v1/characters/')
-      .then((response) => {
-        if (response.status === 200) {
-          this.populateCharacters(response.data)
-        } else {
-          // TODO
-          console.log(response.status)
-        }
-        this.loading = false
-      })
+    if (!this.isStoreInitialized) {
+      this.loading = true
+      axios.get('http://localhost:3000/api/v1/characters/')
+        .then((response) => {
+          if (response.status === 200) {
+            this.populateCharacters(response.data)
+            this.errorGettingCharacters = false
+          } else {
+            this.errorGettingCharacters = true
+          }
+          this.loading = false
+        })
+    }
   },
   computed: {
     ...mapState(['characters', 'isStoreInitialized']),
@@ -74,7 +77,7 @@ export default {
       return pageCharacters
     },
     getMainMessage () {
-      return 'Welcome to Marvel Database!'
+      return !this.errorGettingCharacters ? 'Welcome to Marvel Database!' : 'Error trying to fetch caracters. Please try to reload the page'
     }
   },
   methods: {
